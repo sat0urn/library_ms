@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+    <link rel="stylesheet" type="text/css" href="/css/bookp.css">
+</head>
+<body>
+<h1>Admin page</h1>
+<a href="/books">Show all books</a>
+<br/>
+<a href="/admin/add_new_book">Add new book</a>
+
+<div class="container">
+    <div class="table">
+        <div class="table-header">
+            <div class="header__item"><a id="name" class="filter__link filter__link--number" href="#">Name</a></div>
+            <div class="header__item"><a id="surname" class="filter__link filter__link--number" href="#">Surname</a>
+            </div>
+            <div class="header__item"><a id="email" class="filter__link filter__link--number" href="#">Phone number</a>
+            </div>
+
+            <div class="header__item"><a id="available" class="filter__link filter__link--number" href="#">Email</a>
+            </div>
+        </div>
+        <div class="table-content">
+            <div class="table-row" th:each="user : ${user}">
+
+                <div class="table-data" th:text="${user.getName()}">info</div>
+                <div class="table-data" th:text="${user.getSurname()}">info</div>
+                <div class="table-data" th:text="${user.getPhone()}">info</div>
+                <div class="table-data" th:text="${user.getEmail()}">info</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/src/bp.js"></script>
+</html>
