@@ -1,12 +1,9 @@
-package com.example.otyrar_project.service;
+package com.example.library_ms_project.service;
 
-import com.example.otyrar_project.entity.User;
-import com.example.otyrar_project.repository.UserRepository;
+import com.example.library_ms_project.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
 
 @SpringBootTest
 class UserServiceImplTest {

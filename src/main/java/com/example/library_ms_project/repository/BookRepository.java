@@ -1,7 +1,7 @@
-package com.example.otyrar_project.repository;
+package com.example.library_ms_project.repository;
 
 
-import com.example.otyrar_project.entity.Book;
+import com.example.library_ms_project.entity.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

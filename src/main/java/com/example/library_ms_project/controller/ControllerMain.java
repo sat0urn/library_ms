@@ -1,9 +1,9 @@
-package com.example.otyrar_project.controller;
+package com.example.library_ms_project.controller;
 
-import com.example.otyrar_project.entity.Book;
-import com.example.otyrar_project.entity.User;
-import com.example.otyrar_project.service.BookService;
-import com.example.otyrar_project.service.UserService;
+import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.entity.User;
+import com.example.library_ms_project.service.BookService;
+import com.example.library_ms_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

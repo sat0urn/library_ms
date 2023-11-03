@@ -1,6 +1,6 @@
-package com.example.otyrar_project.service;
+package com.example.library_ms_project.service;
 
-import com.example.otyrar_project.entity.Book;
+import com.example.library_ms_project.entity.Book;
 
 import java.util.List;
 

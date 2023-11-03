@@ -1,4 +1,4 @@
-package com.example.otyrar_project.entity;
+package com.example.library_ms_project.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

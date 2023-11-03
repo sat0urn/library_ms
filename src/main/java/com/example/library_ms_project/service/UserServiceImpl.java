@@ -1,8 +1,8 @@
-package com.example.otyrar_project.service;
+package com.example.library_ms_project.service;
 
-import com.example.otyrar_project.entity.Role;
-import com.example.otyrar_project.entity.User;
-import com.example.otyrar_project.repository.UserRepository;
+import com.example.library_ms_project.entity.Role;
+import com.example.library_ms_project.entity.User;
+import com.example.library_ms_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.core.GrantedAuthority;

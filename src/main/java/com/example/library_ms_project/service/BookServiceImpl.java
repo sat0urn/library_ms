@@ -1,7 +1,7 @@
-package com.example.otyrar_project.service;
+package com.example.library_ms_project.service;
 
-import com.example.otyrar_project.entity.Book;
-import com.example.otyrar_project.repository.BookRepository;
+import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

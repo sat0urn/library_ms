@@ -1,4 +1,4 @@
-package com.example.otyrar_project;
+package com.example.library_ms_project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

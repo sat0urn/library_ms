@@ -1,4 +1,4 @@
-package com.example.otyrar_project.entity;
+package com.example.library_ms_project.entity;
 
 import lombok.*;
 
@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import java.util.Collection;
 import java.util.List;
 @Data
 @AllArgsConstructor
