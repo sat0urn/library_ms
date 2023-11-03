@@ -16,6 +16,6 @@ public class Book {
     private String id;
     private String name;
     private String author;
-    private int year;
+    private int year = 1900;
     private boolean available;
 }

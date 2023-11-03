@@ -4,37 +4,81 @@
     <meta charset="UTF-8">
     <title>Admin page</title>
     <link rel="stylesheet" type="text/css" href="/css/bookp.css">
+    <meta name="keywords" lang="ru" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="all">
+    <link rel="icon" type="image/png" href="/img/logo_tab.png">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800,900&display=swap&subset=cyrillic-ext"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="https://kit.fontawesome.com/c98d165499.js" crossorigin="anonymous"></script>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
+            rel="stylesheet"/>
 </head>
 <body>
-<h1>Admin page</h1>
-<a href="/books">Show all books</a>
-<br/>
-<a href="/admin/add_new_book">Add new book</a>
-
-<div class="container">
-    <div class="table">
-        <div class="table-header">
-            <div class="header__item"><a id="name" class="filter__link filter__link--number" href="#">Name</a></div>
-            <div class="header__item"><a id="surname" class="filter__link filter__link--number" href="#">Surname</a>
-            </div>
-            <div class="header__item"><a id="email" class="filter__link filter__link--number" href="#">Phone number</a>
-            </div>
-
-            <div class="header__item"><a id="available" class="filter__link filter__link--number" href="#">Email</a>
-            </div>
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <a href="/admin">
+                <img class="logo__img" src="/img/logo_rmat_2.png" alt="" width="100">
+            </a>
         </div>
-        <div class="table-content">
-            <div class="table-row" th:each="user : ${user}">
 
-                <div class="table-data" th:text="${user.getName()}">info</div>
-                <div class="table-data" th:text="${user.getSurname()}">info</div>
-                <div class="table-data" th:text="${user.getPhone()}">info</div>
-                <div class="table-data" th:text="${user.getEmail()}">info</div>
-            </div>
+        <nav class="nav">
+            <ul class="nav-list my-3">
+                <li><p class="text-white text-uppercase font-weight-bold mt-2 h4">Admin page</p></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-        </div>
+<div class="container-fluid">
+    <div class="text-center mt-5">
+        <a style="text-decoration: none" href="/admin/books">
+            <button type="button" class="btn btn-outline-primary">
+                Show all books
+            </button>
+        </a>
+        <a style="text-decoration: none" href="/admin/add_new_book">
+            <button type="button" class="btn btn-outline-primary">
+                Add new book
+            </button>
+        </a>
     </div>
 </div>
+
+<div class="container-fluid">
+    <table class="table table-striped my-5 w-75 mx-auto">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, userInd : ${users}">
+            <th th:text="${userInd.index + 1}"></th>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getSurname()}"></td>
+            <td th:text="${user.getPhone()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class=" text-white text-center text-lg-start" style="background-color: #4843ff;">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2023 : Over99</div>
+</footer>
 
 </body>
 <script src="/src/bp.js"></script>

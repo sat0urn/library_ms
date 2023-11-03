@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="icon" type="image/png" href="/img/logo_tab.png">
-    <link rel="stylesheet" type="text/css" href="/src/reg.css">
+    <link rel="stylesheet" type="text/css" href="/css/reg.css">
 </head>
 <body>
 
@@ -13,12 +13,12 @@
         <form th:method="POST" th:action="@{/login}"  class="form">
             <h1 class="title">Sign in</h1>
             <div class="inputContainer">
-                <label for="username" class="label">Email</label>
-                <input type="text" name="username" id="username" class="input" placeholder="a"/>
+                <label for="email"></label>
+                <input type="text" name="username" id="email" class="input" placeholder="Email"/>
             </div>
             <div class="inputContainer">
-                <label for="password" class="label">Password</label>
-                <input type="text" name="password" id="password" class="input" placeholder="a">
+                <label for="password"></label>
+                <input type="text" name="password" id="password" class="input" placeholder="Password">
 
             </div>
             <input type="submit" class="submitBtn" value="Sign in">

@@ -60,7 +60,7 @@ public class ControllerMain {
 
         model.addAttribute("user", user);
         System.out.println(user.getName());
-        return "backprofile";
+        return "account";
     }
 
     @GetMapping("/deleteMe/{id}")
@@ -70,36 +70,32 @@ public class ControllerMain {
     }
 
     @PostMapping("/user_info/{id}")
-    public String updateUser(@PathVariable("id") String id,@ModelAttribute("user") User user)
-    {
+    public String updateUser(@PathVariable("id") String id, @ModelAttribute("user") User user) {
         User user1 = userService.updateUser(user);
         System.out.println(user1);
 
-        return "redirect:/user_info/"+ user.getId();
+        return "redirect:/user_info/" + user.getId();
     }
 
     @GetMapping("/admin")
-    public String getAllUsersAdminPage(Model model)
-    {
-        model.addAttribute("user",userService.getAllUsers());
+    public String getAllUsersAdminPage(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
 
-    @GetMapping("/books")
-    public String showAllBooks(Model model)
-    {
-       model.addAttribute("book", bookService.getAllBooks());
-       return "booksPage";
+    @GetMapping("/admin/books")
+    public String showAllBooks(Model model) {
+        model.addAttribute("books", bookService.getAllBooks());
+        return "books";
     }
 
     @GetMapping("/admin/add_new_book")
-    public String addNewBookPage(@ModelAttribute("book")Book book)
-    {
+    public String addNewBookPage(@ModelAttribute("book") Book book) {
         return "addBook";
     }
+
     @PostMapping("/admin/add_new_book")
-    public String addNewBookToDB(@ModelAttribute("book")Book book)
-    {
+    public String addNewBookToDB(@ModelAttribute("book") Book book) {
         bookService.save(book);
         return "redirect:/admin";
     }

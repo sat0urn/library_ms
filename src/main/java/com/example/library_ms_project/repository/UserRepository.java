@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends MongoRepository<User,String> {
-   public User findUserById(String id);
-   public User findByEmail(String email);
-   public List<User> findAll();
+public interface UserRepository extends MongoRepository<User, String> {
+    public User findUserById(String id);
 
+    public User findByEmail(String email);
 
+    public List<User> findAll();
 }
