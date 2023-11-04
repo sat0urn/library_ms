@@ -1,5 +1,6 @@
 package com.example.library_ms_project.service;
 
+import com.example.library_ms_project.entity.Book;
 import com.example.library_ms_project.entity.Role;
 import com.example.library_ms_project.entity.User;
 import com.example.library_ms_project.repository.UserRepository;
@@ -39,14 +40,6 @@ public class UserServiceImpl implements UserService {
             userRepository.insert(user);
         }
     }
-
-   /* @Override
-    public boolean provenAccount(String email, String password) {
-        User user = userRepository.findUserByEmail(email);
-        if(BCrypt.checkpw(password,user.getPassword()))
-            return true;
-        else return false;
-    }*/
 
     @Override
     public User findUserByEmail(String email) {
@@ -88,5 +81,18 @@ public class UserServiceImpl implements UserService {
         user.setRoles(List.of(new Role("ROLE_USER")));
 
         return mongoTemplate.save(user);
+    }
+
+    @Override
+    public User addBookToUser(String id, Book newBook) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(id));;
+
+        if (user.getBooks() == null) {
+            user.setBooks(new ArrayList<>());
+        }
+
+        user.getBooks().add(newBook);
+
+        return userRepository.save(user);
     }
 }

@@ -99,4 +99,9 @@ public class ControllerMain {
         return "redirect:/admin";
     }
 
+    @PostMapping("/{id}/add_book")
+    public User addBookToUser(@PathVariable("id") String id, @RequestBody Book newBook) {
+        return userService.addBookToUser(id, newBook);
+    }
+
 }

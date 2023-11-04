@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends MongoRepository<Book,String> {
-    public List<Book> findAll();
+    List<Book> findAll();
 }

@@ -3,6 +3,7 @@ package com.example.library_ms_project.entity;
 import lombok.*;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -17,11 +18,11 @@ import java.util.List;
 public class User {
     @Id
     private String id;
-    @Getter
     private String name;
     private String surname;
     private Long phone;
     private String password;
     private String email;
     private List<Role> roles;
+    private List<Book> books;
 }

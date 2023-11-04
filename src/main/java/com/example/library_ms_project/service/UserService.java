@@ -1,5 +1,6 @@
 package com.example.library_ms_project.service;
 
+import com.example.library_ms_project.entity.Book;
 import com.example.library_ms_project.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -20,4 +21,5 @@ public interface UserService extends UserDetailsService {
 
     User updateUser(User user);
 
+    User addBookToUser(String id, Book newBook);
 }
