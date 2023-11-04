@@ -33,25 +33,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.authenticationProvider(authenticationProvider());
     }
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler successHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(
-                        "/registration**","/",
+        http
+                .authorizeRequests()
+                .antMatchers(
+                        "/registration**", "/",
                         "/js/**",
                         "/css/**",
                         "/admin/**",
-                        "/img/**").permitAll()
-
+                        "/img/**")
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/profile", "/user_info/**").hasRole("USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/profile",true)
+                .successHandler(successHandler)
                 .permitAll();
-
     }
 }

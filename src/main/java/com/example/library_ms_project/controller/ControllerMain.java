@@ -26,7 +26,7 @@ public class ControllerMain {
 
 
     @GetMapping("/registration")
-    public String registarUser(@ModelAttribute("user") User user) {
+    public String registerUser(@ModelAttribute("user") User user) {
         return "registration";
     }
 
@@ -43,7 +43,6 @@ public class ControllerMain {
     public String showLoginPage(@ModelAttribute("user") User user) {
         return "login";
     }
-
 
     @GetMapping("/profile")
     public String profilePage(Model model, Authentication authentication) {

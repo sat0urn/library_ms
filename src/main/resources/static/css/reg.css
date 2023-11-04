@@ -75,3 +75,16 @@ body {
 .input:focus {
     border: 2px solid #0060d0;
 }
+
+#prevButton {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #0060d0;
+    color: white;
+    text-align: center;
+}
+
+#prevButton:hover {
+    background-color: #4887d0;
+}
