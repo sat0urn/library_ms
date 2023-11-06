@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="All Test Suite">
+    <test name="C:/Users/nissa/Desktop/My/My_3Course_1Trimester/Software_Quality_Assurance_and_Testing/Assignment_Lecture_5/SQAT_Assignment_5">
+        <parameter name="name" value="Aslan" />
+        <parameter name="surname" value="Kusainov" />
+        <parameter name="phone" value="77771111999" />
+        <parameter name="password" value="1234" />
+        <parameter name="email" value="aslan04@gmail.com" />
+        <parameter name="new_password" value="12345" />
+        <parameter name="millis" value="6000" />
+        <classes>
+            <class name="com.testing.TestCases"/>
+        </classes>
+    </test>
+</suite>
