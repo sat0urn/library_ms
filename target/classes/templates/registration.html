@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="icon" type="image/png" href="/img/logo_tab.png">
+    <link rel="stylesheet" type="text/css" href="/css/reg.css">
+</head>
+<body>
+
+<div class="signupFrm">
+    <div class="wrapper">
+        <form th:method="POST" th:action="@{/registration}" th:object="${user}" class="form">
+            <a href="/" id="prevButton">
+                <
+            </a>
+            <h1 class="title">Sign up</h1>
+            <div class="inputContainer">
+                <label for="name"></label>
+                <input type="text"  th:field="*{name}" id="name" class="input" placeholder="Name"/>
+                <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+            </div>
+            <div class="inputContainer">
+                <label for="surname"></label>
+                <input type="text"  th:field="*{surname}" id="surname" class="input" placeholder="Surname"/>
+                <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"> </div>
+            </div>
+            <div class="inputContainer">
+                <label for="phone"></label>
+                <input type="text" th:field="*{phone}" id="phone" class="input" placeholder="Phone Number">
+                <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+            </div>
+            <div class="inputContainer">
+                <label for="password"></label>
+                <input type="text" th:field="*{password}" id="password" class="input" placeholder="Password">
+                <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <div class="inputContainer">
+                <label for="email"></label>
+                <input type="text" th:field="*{email}" id="email" class="input" placeholder="Email">
+                <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <input type="submit" class="submitBtn" value="Sign up">
+            <a style="color: #0060d0;" href="/login">Already have account? Sign in</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+com\example\library_ms_project\repository\BookRepository.class
+com\example\library_ms_project\entity\Role.class
+com\example\library_ms_project\service\BookServiceImpl.class
+com\example\library_ms_project\config\SecurityConfig.class
+com\example\library_ms_project\entity\Book.class
+com\example\library_ms_project\repository\UserRepository.class
+com\example\library_ms_project\service\UserService.class
+com\example\library_ms_project\entity\User.class
+com\example\library_ms_project\controller\ControllerMain.class
+com\example\library_ms_project\service\UserServiceImpl.class
+com\example\library_ms_project\LibraryMSProjectApplication.class
+com\example\library_ms_project\service\BookService.class
+com\example\library_ms_project\config\CustomAuthenticationSuccessHandler.class

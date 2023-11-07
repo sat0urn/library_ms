@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library books page</title>
+    <meta name="keywords" lang="ru" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="all">
+    <link rel="icon" type="image/png" href="/img/logo_tab.png">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800,900&display=swap&subset=cyrillic-ext"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/src/with.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
+          integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://kit.fontawesome.com/c98d165499.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bookp.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <a href="/admin">
+                <img class="logo__img" src="/img/logo_rmat_2.png" alt="" width="100">
+            </a>
+        </div>
+
+        <nav class="nav">
+            <ul class="nav-list align-items-center">
+                <li><p class="text-white text-uppercase font-weight-bold mt-2 h4">Admin page</p></li>
+                <div class="icons">
+                    <a href="/login">
+                        <svg width="25" height="25" viewBox="0 0 48 46" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                    d="M3.3 3.28571H29.7V19.3857H33V3.28571C33 2.41429 32.6523 1.57855 32.0335 0.962363C31.4146 0.346172 30.5752 0 29.7 0H3.3C2.42479 0 1.58542 0.346172 0.966547 0.962363C0.347677 1.57855 0 2.41429 0 3.28571V42.7143C0 43.5857 0.347677 44.4214 0.966547 45.0376C1.58542 45.6538 2.42479 46 3.3 46H29.7C30.5752 46 31.4146 45.6538 32.0335 45.0376C32.6523 44.4214 33 43.5857 33 42.7143H3.3V3.28571Z"
+                                    fill="white"/>
+                            <path
+                                    d="M38.3521 22.3948C38.0361 22.1258 37.6295 21.9853 37.2137 22.0012C36.798 22.0172 36.4036 22.1885 36.1093 22.4809C35.8151 22.7734 35.6428 23.1654 35.6267 23.5787C35.6106 23.9919 35.7521 24.396 36.0227 24.7101L41.6066 30.1452H17.652C17.2139 30.1452 16.7937 30.3182 16.4839 30.6262C16.1741 30.9341 16 31.3518 16 31.7873C16 32.2228 16.1741 32.6404 16.4839 32.9484C16.7937 33.2563 17.2139 33.4293 17.652 33.4293H41.6066L36.0227 39.1108C35.8498 39.258 35.7093 39.4391 35.6102 39.6428C35.511 39.8466 35.4553 40.0684 35.4465 40.2946C35.4377 40.5207 35.476 40.7462 35.5591 40.9569C35.6421 41.1677 35.7681 41.359 35.9291 41.5191C36.0901 41.6791 36.2827 41.8043 36.4947 41.8869C36.7067 41.9694 36.9335 42.0075 37.1611 41.9988C37.3886 41.99 37.6118 41.9347 37.8168 41.8361C38.0217 41.7375 38.204 41.5979 38.3521 41.426L48 31.9022L38.3521 22.3948Z"
+                                    fill="white"/>
+                        </svg>
+                    </a>
+                </div>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <div class="text-center mt-5">
+        <a style="text-decoration: none" href="/admin">
+            <button type="button" class="btn btn-outline-primary">
+                Admin Page
+            </button>
+        </a>
+        <a style="text-decoration: none" href="/admin/add_new_book">
+            <button type="button" class="btn btn-outline-primary">
+                Add new book
+            </button>
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" style="min-width: 1300px">
+        <div class="col-3 card px-0" th:each="book : ${books}">
+            <img class="card-img-top" src="/img/book_ex_temp.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${book.getName()}">title</h5>
+                <p class="card-text" th:text="${book.getAuthor()}">author</p>
+                <p class="card-text" th:text="${book.getYear()}">year</p>
+                <p class="card-text" th:text="${book.isAvailable()}">available</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class=" text-white text-center text-lg-start" style="background-color: #4843ff;">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">© 2023 : Over99</div>
+</footer>
+
+</body>
+<script src="/src/bp.js"></script>
+</html>
