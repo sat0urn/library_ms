@@ -120,7 +120,7 @@ body::-webkit-scrollbar-track {
 }
 
 .content {
-    background: url(../img/section_bg_notebook_2.png) 40% 40% / cover;
+    background: url(../img/section_bg_notebook.png) 40% 40% / cover;
     background-size: cover;
     height: 100vh;
     position: relative;
@@ -172,7 +172,7 @@ body::-webkit-scrollbar-track {
     color: #1f1f1f;
     background: #fff;
     font-weight: 300;
-    font-size: 18px;
+    border-radius: 5px;
     font-family: 'Quicksand', sans-serif;
 }
 

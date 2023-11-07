@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 
 @Document(collection = "Book")
 @Data
@@ -18,4 +20,5 @@ public class Book {
     private String author;
     private int year = 1900;
     private boolean available;
+    private Date returnDate;
 }

@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,8 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     MongoTemplate mongoTemplate;
+    @Autowired
+    private BookService bookService;
 
     @Override
     public void save(User user) {
@@ -84,15 +89,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addBookToUser(String id, Book newBook) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(id));;
+    public Book borrowBook(String id, String bookId) throws ParseException {
+        Book book = bookService.findById(bookId);
+        if (book != null && book.isAvailable()) {
+            LocalDate localDate = LocalDate.now();
+            localDate.plusDays(14L);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            Date date = sdf.parse(localDate.getMonthValue() + "/" + localDate.getDayOfMonth() + "/" + localDate.getYear());
 
-        if (user.getBooks() == null) {
-            user.setBooks(new ArrayList<>());
-        }
+            book.setReturnDate(date);
+            book.setAvailable(false);
 
-        user.getBooks().add(newBook);
+            List<Book> books = new ArrayList<>();
+            books.add(book);
 
-        return userRepository.save(user);
+            User user = findUserById(id);
+            user.setBooks(books);
+            mongoTemplate.save(user);
+            mongoTemplate.save(book);
+            return book;
+        } else return null;
     }
 }

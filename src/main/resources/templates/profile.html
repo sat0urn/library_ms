@@ -19,7 +19,6 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <link rel="stylesheet" href="/src/with.js">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
           integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -83,10 +82,10 @@
         <div class="left">
             <div class="box1">
                 <div class="general">
-                    <h1 class="date">20.10.2023</h1>
-                    <h1 class="book_name">Epictetus:
-                        The Discorsus Of Epictetus</h1>
-                    <h1 class="book_id">Book id: #1004281</h1>
+                    <h1 class="date" th:text="${book.getReturnDate()}">20.10.2023</h1>
+                    <h1 class="book_name" th:text="${book.getName()}">The Discorsus Of Epictetus</h1>
+                    <h1 class="book_author" th:text="${book.getAuthor()}">Epictetus</h1>
+                    <h1 class="book_id" th:text="${book.getId()}">Book id: #1004281</h1>
                     <h1 class="library">AITU library</h1>
                 </div>
 
@@ -100,7 +99,7 @@
                         <circle cx="70" cy="70" r="70"></circle>
                     </svg>
                     <div class="number">
-                        <h2 id="num">5<span></span></h2>
+                        <h2 id="num" th:text="${days}">5<span></span></h2>
                     </div>
                 </div>
                 <h2 class="text" id="days">Days Left</h2>
@@ -139,7 +138,7 @@
                             <i class="fa fa-check mr-2 text-primary"></i> Harry Potter
                         </li>
                     </ul>
-                    <a href="/library/books" class="btn btn-primary btn-block p-2 shadow rounded-pill">More</a>
+                    <a th:href="@{/library/books/{id}(id=${user.getId()})}" class="btn btn-primary btn-block p-2 shadow rounded-pill">More</a>
                 </div>
             </div>
 

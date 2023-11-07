@@ -4,12 +4,11 @@ import com.example.library_ms_project.entity.Book;
 import com.example.library_ms_project.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
     void save(User user);
-
-   /* boolean provenAccount(String name, String password);*/
 
     User findUserByEmail(String name);
 
@@ -21,5 +20,5 @@ public interface UserService extends UserDetailsService {
 
     User updateUser(User user);
 
-    User addBookToUser(String id, Book newBook);
+    Book borrowBook(String id, String bookId) throws ParseException;
 }

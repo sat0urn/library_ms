@@ -21,4 +21,9 @@ public class BookServiceImpl implements BookService {
     public void save(Book book) {
         bookRepository.insert(book);
     }
+
+    @Override
+    public Book findById(String bookId) {
+        return bookRepository.findBookById(bookId);
+    }
 }
