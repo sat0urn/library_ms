@@ -4,6 +4,7 @@ C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\s
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\entity\User.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\service\BookServiceImpl.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\service\UserServiceImpl.java
+C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\config\WebConfig.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\controller\ControllerMain.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\config\CustomAuthenticationSuccessHandler.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\repository\BookRepository.java
@@ -11,3 +12,4 @@ C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\r
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\entity\Role.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\service\UserService.java
 C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\entity\Book.java
+C:\Users\nissa\Desktop\Library_MS\src\main\java\com\example\library_ms_project\interceptors\MobileDetectionIntercept.java
