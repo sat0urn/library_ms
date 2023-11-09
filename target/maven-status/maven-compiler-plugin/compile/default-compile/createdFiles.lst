@@ -1,4 +1,5 @@
 com\example\library_ms_project\repository\BookRepository.class
+com\example\library_ms_project\controller\MyErrorController.class
 com\example\library_ms_project\entity\Role.class
 com\example\library_ms_project\service\BookServiceImpl.class
 com\example\library_ms_project\config\SecurityConfig.class
