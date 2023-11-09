@@ -140,7 +140,6 @@ public class ControllerMain {
         u.setSurname(user.getSurname());
         u.setPhone(user.getPhone());
         u.setEmail(user.getEmail());
-        u.setBooks(user.getBooks());
 
         userService.updateUser(u);
         return "redirect:/user/account/" + u.getId();
