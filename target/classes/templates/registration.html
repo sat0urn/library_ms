@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <link rel="icon" type="image/png" href="/img/logo_tab.png">
-    <link rel="stylesheet" type="text/css" href="/css/reg.css">
+    <link rel="stylesheet" type="text/css" href="/css/reg_log_forms.css">
 </head>
 <body>
-
-<div class="signupFrm">
+<div class="signUpFrm">
     <div class="wrapper">
         <form th:method="POST" th:action="@{/registration}" th:object="${user}" class="form">
             <a href="/" id="prevButton">
@@ -31,20 +30,19 @@
                 <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
             </div>
             <div class="inputContainer">
-                <label for="password"></label>
-                <input type="text" th:field="*{password}" id="password" class="input" placeholder="Password">
-                <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-            </div>
-            <div class="inputContainer">
                 <label for="email"></label>
                 <input type="text" th:field="*{email}" id="email" class="input" placeholder="Email">
                 <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="inputContainer">
+                <label for="password"></label>
+                <input type="text" th:field="*{password}" id="password" class="input" placeholder="Password">
+                <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
             <input type="submit" class="submitBtn" value="Sign up">
             <a style="color: #0060d0;" href="/login">Already have account? Sign in</a>
         </form>
     </div>
 </div>
-
 </body>
 </html>

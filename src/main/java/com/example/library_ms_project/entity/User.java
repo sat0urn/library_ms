@@ -1,11 +1,9 @@
 package com.example.library_ms_project.entity;
 
 import lombok.*;
-
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 import java.util.List;
 @Data
@@ -23,6 +21,7 @@ public class User {
     private Long phone;
     private String password;
     private String email;
+    private Binary image;
     private List<Role> roles;
     private List<Book> books;
 }

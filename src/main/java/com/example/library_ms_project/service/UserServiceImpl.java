@@ -4,6 +4,8 @@ import com.example.library_ms_project.entity.Book;
 import com.example.library_ms_project.entity.Role;
 import com.example.library_ms_project.entity.User;
 import com.example.library_ms_project.repository.UserRepository;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +14,9 @@ import org.springframework.security.core.userdetails.*;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,6 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         if (user.getEmail().equals("zeyin03@gmail.com") && user.getName().equals("zeiin")) {
+            System.out.println("ok admin");
             String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
             user.setRoles(List.of(new Role("ROLE_ADMIN")));
@@ -81,11 +86,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User user) {
+        return mongoTemplate.save(user);
+    }
+
+    @Override
+    public void changePassword(User user) {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         user.setRoles(List.of(new Role("ROLE_USER")));
 
-        return mongoTemplate.save(user);
+        mongoTemplate.save(user);
     }
 
     @Override
@@ -110,4 +120,16 @@ public class UserServiceImpl implements UserService {
             return book;
         } else return null;
     }
+
+    @Override
+    public void addPhoto(String id, MultipartFile file) throws IOException {
+        User user = findUserById(id);
+
+        user.setImage(
+                new Binary(BsonBinarySubType.BINARY, file.getBytes())
+        );
+
+        mongoTemplate.save(user);
+    }
+
 }

@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/profile", "/user_info/**").hasRole("USER")
+                .antMatchers("/user/**").hasRole("USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")

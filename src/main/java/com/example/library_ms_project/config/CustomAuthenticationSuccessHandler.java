@@ -14,7 +14,7 @@ import java.util.Collection;
 @Component
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         // Get the user's roles
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
@@ -25,10 +25,9 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
                 break;
             } else {
                 // Redirect to the user profile page if the user has the USER role
-                setDefaultTargetUrl("/profile");
+                setDefaultTargetUrl("/user/profile");
             }
         }
-
         try {
             super.onAuthenticationSuccess(request, response, authentication);
         } catch (ServletException | IOException e) {

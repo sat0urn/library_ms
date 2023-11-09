@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="icon" type="image/png" href="/img/logo_tab.png">
-    <link rel="stylesheet" type="text/css" href="/css/reg.css">
+    <link rel="stylesheet" type="text/css" href="/css/reg_log_forms.css">
 </head>
 <body>
-
-<div class="signupFrm">
+<div class="signUpFrm">
     <div class="wrapper">
         <form th:method="POST" th:action="@{/login}" class="form">
             <a href="/" id="prevButton">
@@ -22,13 +21,11 @@
             <div class="inputContainer">
                 <label for="password"></label>
                 <input type="text" name="password" id="password" class="input" placeholder="Password">
-
             </div>
             <input type="submit" class="submitBtn" value="Sign in">
             <a style="color: #0060d0" href="/registration">Do not have account? Create!</a>
         </form>
     </div>
 </div>
-
 </body>
 </html>
