@@ -16,17 +16,16 @@ function setProgress(progress) {
         }
     );
 
+    setInterval(() => {
+        if (counter === progress) {
+            clearInterval();
+        } else {
+            counter += 1;
+            number.innerHTML = counter + " / 14";
+        }
+    }, 100)
     circleAnimation.play();
 }
 
 setProgress(parseInt(number.textContent));
-
-setInterval(() => {
-    if (counter === 5) {
-        clearInterval();
-    } else {
-        counter += 1;
-        number.innerHTML = counter + " / 14";
-    }
-}, 100)
 
