@@ -112,7 +112,14 @@ public class UserServiceImpl implements UserService {
             book.setAvailable(false);
 
             User user = findUserById(id);
-            user.getBooks().add(book);
+
+            if (user.getBooks() == null) {
+                List<Book> books = new ArrayList<>();
+                books.add(book);
+                user.setBooks(books);
+            } else {
+                user.getBooks().add(book);
+            }
 
             mongoTemplate.save(user);
             mongoTemplate.save(book);
