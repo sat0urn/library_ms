@@ -83,7 +83,8 @@ public class ControllerMain {
             model.addAttribute("days", 5);
         } else {
             Book book = user_books.get(0);
-            int maxDays = 14;
+            int maxDays = book.getReturnDate().getDate();
+
             LocalDate localDate = LocalDate.now();
             int today = localDate.getDayOfMonth();
             int leftDays = maxDays - today;

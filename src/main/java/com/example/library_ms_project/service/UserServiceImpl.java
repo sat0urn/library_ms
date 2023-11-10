@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
         Book book = bookService.findById(bookId);
         if (book != null && book.isAvailable()) {
             LocalDate localDate = LocalDate.now();
-            localDate.plusDays(14L);
+             localDate = localDate.plusDays(14L);
 
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Date date = sdf.parse(localDate.getMonthValue() + "/" + localDate.getDayOfMonth() + "/" + localDate.getYear());
