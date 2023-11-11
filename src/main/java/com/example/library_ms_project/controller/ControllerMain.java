@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 @Controller
@@ -185,6 +182,37 @@ public class ControllerMain {
         model.addAttribute("user", user);
         model.addAttribute("book", bookService.getAllBooks());
         return "user_books";
+    }
+
+    @GetMapping("/user/history/{id}")
+    public String showHistoryPage(
+            Model model,
+            @PathVariable("id") String id
+    ) {
+        User user = userService.findUserById(id);
+
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        List<String> return_dates = new ArrayList<>();
+        for (Book user_book : user.getBooks()) {
+            return_dates.add(DateFor.format(user_book.getReturnDate()));
+        }
+
+        List<String> return_dates_progress = new ArrayList<>();
+        for (Book user_book : user.getBooks()) {
+            int maxDays = user_book.getReturnDate().getDate();
+
+            LocalDate localDate = LocalDate.now();
+            int today = localDate.getDayOfMonth();
+            int progress = Math.max(maxDays - today, 0);
+            int progress_percent = progress * 100 / 14;
+            return_dates_progress.add(progress_percent + "%");
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("books", user.getBooks());
+        model.addAttribute("return_dates", return_dates);
+        model.addAttribute("return_dates_progress", return_dates_progress);
+        return "history";
     }
 
     @GetMapping("/admin")

@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Library MS</title>
     <link rel="icon" type="image/png" href="/img/logo_tab.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800,900&display=swap&subset=cyrillic-ext"
@@ -207,7 +206,7 @@
                     </div>
 
                     <div class="card-footer border-0 bg-transparent">
-                        <a href="#"
+                        <a th:href="@{/user/history/{id}(id=${user.getId()})}"
                            class="btn btn-primary btn-block p-2 shadow rounded-pill w-100">
                             More
                         </a>
@@ -254,7 +253,7 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>
-                            TAKED before
+                            Took before
                         </th>
                         <th>
                             popularity

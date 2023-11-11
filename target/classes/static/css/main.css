@@ -37,29 +37,6 @@ body::-webkit-scrollbar-track {
 
 /*header*/
 
-.header {
-    background: url(../img/headerimg.jpg);
-    position: sticky;
-    z-index: 2;
-    top: 0;
-    transition: 0.3s ease-in-out;
-    height: 80px;
-}
-
-.container-menu {
-    display: none;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    height: 100%;
-    padding: 0 40px;
-}
-
 .section__about {
     display: flex;
     height: 100vh;
@@ -137,11 +114,6 @@ ul.navbar-nav .nav-item a:hover {
 
 .logo_img {
     margin-bottom: 30px;
-}
-
-.phone {
-    color: #fff;
-    font-family: 'Quicksand', sans-serif;
 }
 
 /* footer */

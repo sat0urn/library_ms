@@ -3,7 +3,7 @@ let counter = 0;
 const circle = document.querySelector('circle');
 const totalLength = circle.getTotalLength();
 function setProgress(progress) {
-    circle.style.strokeDashoffset = totalLength - (progress / 14) * totalLength;
+    circle.style.strokeDashoffset = (totalLength - (progress / 14) * totalLength).toString();
 
     let circleAnimation = circle.animate(
         [
@@ -11,7 +11,7 @@ function setProgress(progress) {
             {strokeDashoffset: totalLength - (progress / 14) * totalLength} // End with the desired value (e.g., '0' for a full circle)
         ],
         {
-            duration: 500, // Animation duration in milliseconds
+            duration: 850, // Animation duration in milliseconds
             fill: 'forwards' // Animation should stay at the final state
         }
     );
@@ -23,7 +23,7 @@ function setProgress(progress) {
             counter += 1;
             number.innerHTML = counter + " / 14";
         }
-    }, 100)
+    }, 60)
     circleAnimation.play();
 }
 
