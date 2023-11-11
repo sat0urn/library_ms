@@ -206,7 +206,7 @@
                                         <input class="form-control"
                                                id="totalLoanedBooks"
                                                type="text"
-                                               th:value="${user_books_number}"
+                                               th:value="${user.getBooks().size()}"
                                                disabled>
                                     </div>
                                     <div class="col-md-6">

@@ -103,23 +103,18 @@ public class UserServiceImpl implements UserService {
         Book book = bookService.findById(bookId);
         if (book != null && book.isAvailable()) {
             LocalDate localDate = LocalDate.now();
-             localDate = localDate.plusDays(14L);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            Date date = sdf.parse(localDate.getMonthValue() + "/" + localDate.getDayOfMonth() + "/" + localDate.getYear());
+            localDate = localDate.plusDays(14L);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            Date date = sdf.parse(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
 
             book.setReturnDate(date);
             book.setAvailable(false);
 
             User user = findUserById(id);
 
-            if (user.getBooks() == null) {
-                List<Book> books = new ArrayList<>();
-                books.add(book);
-                user.setBooks(books);
-            } else {
-                user.getBooks().add(book);
-            }
+            user.getBooks().add(book);
 
             mongoTemplate.save(user);
             mongoTemplate.save(book);

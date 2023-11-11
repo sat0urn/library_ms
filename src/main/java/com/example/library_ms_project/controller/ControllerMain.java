@@ -62,7 +62,7 @@ public class ControllerMain {
 
         model.addAttribute("user", user);
         model.addAttribute("library_books", library_books);
-        if (user_books == null || user_books.isEmpty()) {
+        if (user_books.isEmpty()) {
             Date date = new Date();
 
             Book book = new Book(
@@ -74,28 +74,28 @@ public class ControllerMain {
                     date
             );
 
-            SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy hh:mm:ss", Locale.ENGLISH);
+            SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
             String return_date = DateFor.format(book.getReturnDate());
 
-            model.addAttribute("user_books", null);
+            model.addAttribute("user_books", user_books);
             model.addAttribute("book", book);
             model.addAttribute("return_date", return_date);
             model.addAttribute("days", 5);
         } else {
-            Book book = user_books.get(0);
+            Book book = user_books.get(user_books.size() - 1);
             int maxDays = book.getReturnDate().getDate();
 
             LocalDate localDate = LocalDate.now();
             int today = localDate.getDayOfMonth();
             int leftDays = maxDays - today;
 
-            SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy hh:mm:ss", Locale.ENGLISH);
+            SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
             String return_date = DateFor.format(book.getReturnDate());
 
             model.addAttribute("user_books", user_books);
             model.addAttribute("book", book);
             model.addAttribute("return_date", return_date);
-            model.addAttribute("days", leftDays);
+            model.addAttribute("days", Math.max(leftDays, 0));
         }
         return "profile";
     }
@@ -106,12 +106,6 @@ public class ControllerMain {
             Model model
     ) {
         User user = userService.findUserById(id);
-
-        if (user.getBooks() == null || user.getBooks().isEmpty()) {
-            model.addAttribute("user_books_number", 0);
-        } else {
-            model.addAttribute("user_books_number", user.getBooks().size());
-        }
 
         model.addAttribute("user", user);
         if (user.getImage() != null) {

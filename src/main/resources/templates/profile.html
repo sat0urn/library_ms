@@ -194,14 +194,14 @@
                     <div class="card-body">
                         <ul class="list-unstyled text-small text-start"
                             th:each="b, iter : ${user_books}"
-                            th:if="${user_books != null && iter.index < 6}">
+                            th:if="${!user_books.isEmpty() && iter.index < 6}">
                             <li class="mb-3">
                                 <i class="fa fa-check mr-2 text-primary align-middle"></i>
                                 <span class="align-middle" th:text="${b.getName()}">Library Books</span>
                             </li>
                         </ul>
                         <div class="d-flex justify-content-center align-items-center h-100"
-                             th:unless="${user_books != null}">
+                             th:unless="${!user_books.isEmpty()}">
                             <span>You Don't Have any Borrowed Books</span>
                         </div>
                     </div>
@@ -265,8 +265,8 @@
                     </tr>
                     </thead>
                     <tbody
-                            th:each="b, iter : ${user.getBooks()}"
-                            th:if="${!user.getBooks().isEmpty()}"
+                            th:each="b, iter : ${user_books}"
+                            th:if="${!user_books.isEmpty()}"
                     >
                     <tr>
                         <td>
