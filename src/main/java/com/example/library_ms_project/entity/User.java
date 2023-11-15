@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @ToString
 @Document(collection = "User")
+@Builder
 public class User {
     @Id
     private String id;
