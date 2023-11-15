@@ -24,21 +24,7 @@ class UserServiceImplTest {
         Assertions.assertEquals(user.getName(),"zeiin");
     }
 
-/*    @Test
-    public  void checkMethodOfUserRepository()
-    {
-        String id = "63f376e7f9980f60b222227e";
-        User user = userService.findUserById(id);
-        System.out.println(user.getName());
-    }*/
-    /*    @Test
-        public void testBookingBack()
-        {
-            String id = "65493a1e194b6256eaf1d4fa";
-            String bookID = "63f3911b6a0f41032a056f49";
-            boolean res = userService.borrowBook(id,bookID);
-            Assertions.assertTrue(res);
-        }*/
+
 
 
 
