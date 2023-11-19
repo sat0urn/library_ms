@@ -23,6 +23,19 @@ class UserServiceImplTest {
         User user = userService.findUserByEmail("zeyin03@gmail.com");
         Assertions.assertEquals(user.getName(),"zeiin");
     }
+    @Test
+    public void checkGetBooks()
+    {
+        List<Book> books = bookService.getAllBooks();
+        Assertions.assertNotEquals(books.size(),0);
+    }
+
+    @Test
+    public void testFindUserById()
+    {
+        User user = userService.findUserById("654ee9d85fde4346035169dd");
+        Assertions.assertEquals(user.getName(),"zeiin");
+    }
 
 
 
