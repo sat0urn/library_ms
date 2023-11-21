@@ -8,5 +8,4 @@ public class LibraryMSProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(LibraryMSProjectApplication.class, args);
     }
-
 }
