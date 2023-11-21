@@ -24,6 +24,8 @@ public interface UserService extends UserDetailsService {
 
     void changePassword(User user);
 
+    List<Book> searchBooks();
+
     void addPhoto(String id, MultipartFile file) throws IOException;
 
     Book borrowBook(String id, String bookId) throws ParseException;

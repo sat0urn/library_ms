@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;
     @Autowired
     private BookService bookService;
 
@@ -132,4 +132,8 @@ public class UserServiceImpl implements UserService {
         mongoTemplate.save(user);
     }
 
+    @Override
+    public List<Book> searchBooks() {
+        return null;
+    }
 }

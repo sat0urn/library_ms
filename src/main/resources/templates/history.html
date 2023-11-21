@@ -71,48 +71,38 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-10 mx-auto">
-            <form action="#" class="bg-primary opacity-50 px-4 py-3 border rounded-2">
+            <form th:method="POST" th:action="@{/user/history/{id}(id=${user.getId()})}" th:object="${search_books}"
+                  class="bg-primary bg-opacity-75 px-4 py-3 border rounded-2">
                 <div class="row">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-4">
                         <div class="input-group">
-                            <label for="keywords">
+                            <label class="w-100" for="keywords">
                                 <input type="text"
                                        class="form-control"
-                                       placeholder="Enter Your Keywords"
+                                       placeholder="Enter book name"
+                                       th:field="*{text}"
                                        id="keywords">
+                                <div style="color: red"
+                                     th:if="${#fields.hasErrors('text')}"
+                                     th:errors="*{text}">
+                                    Error
+                                </div>
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="w-100">
-                            <select class="form-select">
-                                <option selected>
-                                    Library
-                                </option>
-                                <option value="1">
-                                    AITU
-                                </option>
-                                <option value="2">
-                                    UIB
-                                </option>
-                                <option value="3">
-                                    NU
-                                </option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-4">
                         <div class="input-group">
-                            <label for="dates">
-                                <input type="text"
-                                       class="form-control"
-                                       placeholder="Enter date"
-                                       id="dates">
+                            <label class="w-100">
+                                <select class="form-select">
+                                    <option selected value="1">
+                                        AITU Library
+                                    </option>
+                                </select>
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 text-end">
-                        <button type="button" class="btn btn-light ">
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-light" type="submit">
                             Search
                         </button>
                     </div>

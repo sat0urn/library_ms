@@ -1,6 +1,7 @@
 package com.example.library_ms_project.controller;
 
 import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.entity.SearchedText;
 import com.example.library_ms_project.entity.User;
 import com.example.library_ms_project.service.BookService;
 import com.example.library_ms_project.service.UserService;
@@ -8,47 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
-
 @Controller
-public class ControllerMain {
+public class UserController {
+
     @Autowired
-    private UserService userService;
+    public BookService bookService;
+
     @Autowired
-    private BookService bookService;
-
-    @GetMapping("/")
-    public String indexPage() {
-        return "index";
-    }
-
-    @GetMapping("/registration")
-    public String registerUser(@ModelAttribute("user") User user) {
-        return "registration";
-    }
-
-    @PostMapping("/registration")
-    public String saveUserToDB(@ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        userService.save(user);
-        return "redirect:/login";
-    }
-
-    @GetMapping("/login")
-    public String showLoginPage(@ModelAttribute("user") User user) {
-        return "login";
-    }
+    public UserService userService;
 
     @GetMapping("/user/profile")
     public String profilePage(Model model, Authentication authentication) {
@@ -64,8 +43,8 @@ public class ControllerMain {
 
             Book book = new Book(
                     "1004281",
-                    "Info about borrowed book will be there",
-                    "Author name",
+                    "Default book name",
+                    "Default author",
                     1999,
                     false,
                     date
@@ -80,11 +59,14 @@ public class ControllerMain {
             model.addAttribute("days", 5);
         } else {
             Book book = user_books.get(user_books.size() - 1);
-            int maxDays = book.getReturnDate().getDate();
 
-            LocalDate localDate = LocalDate.now();
-            int today = localDate.getDayOfMonth();
-            int leftDays = maxDays - today;
+            LocalDate bookDate = book.getReturnDate()
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            int today = LocalDate.now().getDayOfMonth();
+            int leftDays = bookDate.minusDays(today).getDayOfMonth();
 
             SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
             String return_date = DateFor.format(book.getReturnDate());
@@ -92,7 +74,7 @@ public class ControllerMain {
             model.addAttribute("user_books", user_books);
             model.addAttribute("book", book);
             model.addAttribute("return_date", return_date);
-            model.addAttribute("days", Math.max(leftDays, 0));
+            model.addAttribute("days", leftDays);
         }
         return "profile";
     }
@@ -112,15 +94,6 @@ public class ControllerMain {
         return "account";
     }
 
-    @PostMapping("/user/photo/add")
-    public String addPhoto(
-            @RequestParam("image") MultipartFile image,
-            @ModelAttribute("id") String id
-    ) throws IOException {
-        userService.addPhoto(id, image);
-        return "redirect:/user/account/" + id;
-    }
-
     @PostMapping("/user/account/{id}")
     public String updateUser(
             @PathVariable("id") String id,
@@ -137,6 +110,15 @@ public class ControllerMain {
         return "redirect:/user/account/" + u.getId();
     }
 
+    @PostMapping("/user/account/photo/add")
+    public String addPhoto(
+            @RequestParam("image") MultipartFile image,
+            @ModelAttribute("id") String id
+    ) throws IOException {
+        userService.addPhoto(id, image);
+        return "redirect:/user/account/" + id;
+    }
+
     @PostMapping("/user/account/change_password/{id}")
     public String changePassword(
             @PathVariable("id") String id,
@@ -150,7 +132,7 @@ public class ControllerMain {
         return "redirect:/user/account/" + u.getId();
     }
 
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/user/account/delete/{id}")
     public String deleteUser(@PathVariable("id") String id) {
         userService.deleteUser(id);
         return "redirect:/";
@@ -191,45 +173,66 @@ public class ControllerMain {
     ) {
         User user = userService.findUserById(id);
 
+        List<Book> searched_books = (List<Book>) model.getAttribute("searched_books");
+        List<Book> history_books;
+
         SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
         List<String> return_dates = new ArrayList<>();
-        for (Book user_book : user.getBooks()) {
-            return_dates.add(DateFor.format(user_book.getReturnDate()));
+
+        if (searched_books != null) {
+            history_books = searched_books;
+        } else {
+            history_books = user.getBooks();
+        }
+
+        for (Book book : history_books) {
+            return_dates.add(DateFor.format(book.getReturnDate()));
         }
 
         List<String> return_dates_progress = new ArrayList<>();
-        for (Book user_book : user.getBooks()) {
-            int maxDays = user_book.getReturnDate().getDate();
+        for (Book book : history_books) {
+            LocalDate bookDate = book.getReturnDate()
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
 
-            LocalDate localDate = LocalDate.now();
-            int today = localDate.getDayOfMonth();
-            int progress = Math.max(maxDays - today, 0);
+            int today = LocalDate.now().getDayOfMonth();
+            int progress = bookDate.minusDays(today).getDayOfMonth();
             int progress_percent = progress * 100 / 14;
+
             return_dates_progress.add(progress_percent + "%");
         }
 
         model.addAttribute("user", user);
-        model.addAttribute("books", user.getBooks());
+        model.addAttribute("books", history_books);
+        model.addAttribute("search_books", new SearchedText());
         model.addAttribute("return_dates", return_dates);
         model.addAttribute("return_dates_progress", return_dates_progress);
         return "history";
     }
 
-    @GetMapping("/admin")
-    public String getAllUsersAdminPage(@ModelAttribute("book") Book book, Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "admin";
-    }
+    @PostMapping("/user/history/{id}")
+    public String searchBooksHistory(
+            final RedirectAttributes redirectAttributes,
+            @PathVariable("id") String id,
+            @ModelAttribute("search_books") SearchedText searchedText
+    ) {
+        User user = userService.findUserById(id);
 
-    @GetMapping("/admin/books")
-    public String showAllBooks(@ModelAttribute("book") Book book, Model model) {
-        model.addAttribute("books", bookService.getAllBooks());
-        return "admin_books";
-    }
+        List<Book> searchedBooks = new ArrayList<>();
 
-    @PostMapping("/admin/books/add")
-    public String addNewBook(@ModelAttribute("book") Book book) {
-        bookService.save(book);
-        return "redirect:/admin";
+        if (searchedText.getText() != null) {
+            for (Book book : user.getBooks()) {
+                String user_book = book.getName().toLowerCase();
+                String searched_text = searchedText.getText().toLowerCase();
+                if (user_book.contains(searched_text)) {
+                    searchedBooks.add(book);
+                }
+            }
+
+            redirectAttributes.addFlashAttribute("searched_books", searchedBooks);
+        }
+
+        return "redirect:/user/history/" + id;
     }
 }

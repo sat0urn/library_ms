@@ -1,4 +1,4 @@
-package com.example.library_ms_project.controller;
+package com.example.library_ms_project.controller.error;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

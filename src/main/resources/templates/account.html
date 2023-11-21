@@ -93,7 +93,7 @@
                     <div class="small font-italic text-muted mb-4">
                         JPG or PNG no larger than 5 MB
                     </div>
-                    <form th:method="POST" th:action="@{/user/photo/add(id=${user.getId()})}"
+                    <form th:method="POST" th:action="@{/user/account/photo/add(id=${user.getId()})}"
                           enctype="multipart/form-data">
                         <div class="mb-3 w-75 mx-auto">
                             <input
@@ -261,7 +261,7 @@
                                         </button>
                                     </div>
                                     <div class="col text-end">
-                                        <a th:href="@{/user/delete/{id}(id=${user.getId()})}">
+                                        <a th:href="@{/user/account/delete/{id}(id=${user.getId()})}">
                                             <button class="btn btn-danger" type="button">
                                                 Delete account?
                                             </button>
