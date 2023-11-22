@@ -3,6 +3,7 @@ package com.example.library_ms_project.service;
 import com.example.library_ms_project.entity.Book;
 import com.example.library_ms_project.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +27,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findById(String bookId) {
         return bookRepository.findBookById(bookId);
+    }
+
+    @Override
+    public Book findByName(String bookName) {
+        return bookRepository.findBookByName(bookName);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        bookRepository.save(book);
     }
 }

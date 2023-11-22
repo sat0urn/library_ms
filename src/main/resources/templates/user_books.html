@@ -29,15 +29,15 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                    <a class="nav-link text-center" href="/user/profile" style="width: 5rem">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mail</a>
+                    <a class="nav-link text-center" href="#" style="width: 5rem">Library</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dept</a>
+                    <a class="nav-link text-center" th:href="@{/user/history/{id}(id=${user.getId()})}" style="width: 5rem">History</a>
                 </li>
-                <li class="align-self-center py-2 me-3">
+                <li class="align-self-center py-2 mx-2">
                     <a class="text-decoration-none text-white" th:href="@{/user/account/{id}(id=${user.getId()})}">
                         <svg width="25" height="25" viewBox="0 0 898 898" fill="none"
                              xmlns="http://www.w3.org/2000/svg" class="m-0">
@@ -49,7 +49,7 @@
                         <span class="pe-1" th:text="${user.getSurname()}"></span>
                     </a>
                 </li>
-                <li class="align-self-center py-2 me-3">
+                <li class="align-self-center py-2 mx-3">
                     <a href="/login">
                         <svg width="25" height="25" viewBox="0 0 48 46" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -78,11 +78,11 @@
 </div>
 
 <div class="container">
-    <span th:if="${!book.isEmpty()}">
+    <span th:if="${!books.isEmpty()}">
     <div class="row row-cols-4 mx-auto justify-content-center my-5"
          style="min-width: 1300px">
         <div class="col"
-             th:each="book : ${book}">
+             th:each="book : ${books}">
             <div class="card" style="width: 18rem;">
                 <div class="card-header text-center">
                     <img width="250"
@@ -91,14 +91,19 @@
                          alt="Library Books">
                 </div>
                 <div class="card-body text-center">
-                    <h5 class="card-title fst-italic"
-                        th:text="${book.getName()}">title</h5>
+                    <h5 class="card-title fst-italic">
+                         "
+                        <span th:text="${book.getName()}">
+                              title
+                        </span>
+                        "
+                    </h5>
                     <p class="card-text"
                        th:text="${book.getAuthor()}">author</p>
                     <p class="card-text"
                        th:text="${book.getYear()}">year</p>
                     <p class="card-text"
-                       th:text="${book.isAvailable()}">available</p>
+                       th:text="${book.isAvailable() ? 'Available' : 'Not Available'}">isAvailable</p>
                     <small class="text-muted">AITU Library</small>
                 </div>
                 <div class="card-footer text-center">
@@ -111,10 +116,10 @@
         </div>
     </div>
     </span>
-    <span th:unless="${!book.isEmpty()}">
+    <span th:unless="${!books.isEmpty()}">
     <div class="card mt-5 mx-auto text-center" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title fst-italic">Currently there are no books</h5>
+            <h5 class="card-title fw-bold">Currently there are no books</h5>
             <p class="card-text">Please accept our apologies</p>
             <p class="card-text">Come back a little later</p>
             <p class="card-text">To reserve a book</p>

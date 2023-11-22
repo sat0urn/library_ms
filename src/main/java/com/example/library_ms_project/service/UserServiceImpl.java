@@ -1,8 +1,10 @@
 package com.example.library_ms_project.service;
 
 import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.entity.BookRequest;
 import com.example.library_ms_project.entity.Role;
 import com.example.library_ms_project.entity.User;
+import com.example.library_ms_project.repository.BookRequestRepository;
 import com.example.library_ms_project.repository.UserRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -34,6 +36,8 @@ public class UserServiceImpl implements UserService {
     private MongoTemplate mongoTemplate;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookRequestRepository bookRequestRepository;
 
     @Override
     public void save(User user) {
@@ -84,8 +88,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return mongoTemplate.save(user);
+    public void updateUser(User user) {
+        mongoTemplate.save(user);
     }
 
     @Override
@@ -98,12 +102,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Book borrowBook(String id, String bookId) throws ParseException {
+    public void borrowBook(String id, String bookId, int returnDays) throws ParseException {
         Book book = bookService.findById(bookId);
+
         if (book != null && book.isAvailable()) {
             LocalDate localDate = LocalDate.now();
 
-            localDate = localDate.plusDays(14L);
+            if (returnDays > 14) {
+                localDate = localDate.plusDays(14);
+            }
+            if (returnDays <= 0) {
+                localDate = localDate.plusDays(1);
+            }
+
+            localDate = localDate.plusDays(returnDays);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             Date date = sdf.parse(localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear());
@@ -117,8 +129,7 @@ public class UserServiceImpl implements UserService {
 
             mongoTemplate.save(user);
             mongoTemplate.save(book);
-            return book;
-        } else return null;
+        }
     }
 
     @Override
@@ -133,7 +144,58 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Book> searchBooks() {
-        return null;
+    public String generatePassword(User user) {
+        String first_name = user.getName().toLowerCase();
+        String last_name = user.getSurname().toLowerCase();
+        String phone = user.getPhone().toString();
+
+        char[] chars = (first_name + last_name).toCharArray();
+        int id = 0;
+        for (char ch : chars) {
+            id += ch;
+        }
+
+        String idStr = id % 1000 / 100 + "" + id % 100 / 10;
+
+        return "libms" + first_name + last_name + phone.substring(phone.length() - 2) + idStr;
+    }
+
+    @Override
+    public void generateLibrarian(User user) {
+        String first_name = user.getName().toLowerCase();
+        String last_name = user.getSurname().toLowerCase();
+        String phone = user.getPhone().toString();
+        String email = first_name
+                + "_"
+                + last_name
+                + phone.substring(phone.length() - 4) + "@libms.com";
+
+        String password = generatePassword(user);
+
+        user.setEmail(email);
+        String hashedPassword = passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
+        user.setRoles(List.of(new Role("ROLE_LIBRARIAN")));
+        userRepository.insert(user);
+    }
+
+    @Override
+    public BookRequest findBookRequest(String user_id, String book_id) {
+        return bookRequestRepository.findBookRequestByUserIdAndBookId(user_id, book_id);
+    }
+
+    @Override
+    public void createRequest(String user_id, String book_id) {
+        mongoTemplate.save(new BookRequest(user_id, book_id, 0));
+    }
+
+    @Override
+    public void removeRequest(String user_id, String book_id) {
+        bookRequestRepository.deleteBookRequestByUserIdAndBookId(user_id, book_id);
+    }
+
+    @Override
+    public List<BookRequest> getAllBookRequests() {
+        return bookRequestRepository.findAll();
     }
 }

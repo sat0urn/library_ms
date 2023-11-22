@@ -1,6 +1,7 @@
 package com.example.library_ms_project.service;
 
 import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.entity.BookRequest;
 import com.example.library_ms_project.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,13 +21,23 @@ public interface UserService extends UserDetailsService {
 
     void deleteUser(String id);
 
-    User updateUser(User user);
+    void updateUser(User user);
 
     void changePassword(User user);
 
-    List<Book> searchBooks();
-
     void addPhoto(String id, MultipartFile file) throws IOException;
 
-    Book borrowBook(String id, String bookId) throws ParseException;
+    void borrowBook(String id, String bookId, int returnDays) throws ParseException;
+
+    void generateLibrarian(User user);
+
+    BookRequest findBookRequest(String user_id, String book_id);
+
+    void createRequest(String userId, String bookId);
+
+    void removeRequest(String userId, String  booId);
+
+    String generatePassword(User user);
+
+    List<BookRequest> getAllBookRequests();
 }

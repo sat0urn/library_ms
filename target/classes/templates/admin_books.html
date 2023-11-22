@@ -27,12 +27,42 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav align-items-center">
-                <li class="align-self-center nav-item me-5">
-                    <h2 class="text-uppercase m-0 text-start text-white">
-                        Admin Panel
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">
+                        <button type="button"
+                                class="btn btn-outline-primary border-0 bg-light text-primary m-0"
+                                style="width: 11rem">
+                            Admin panel
+                        </button>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <button type="button"
+                                class="btn btn-outline-primary border-0 bg-light text-primary m-0"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                style="width: 11rem">
+                            Add new book
+                        </button>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <button type="button" class="btn btn-outline-primary border-0 bg-light text-primary m-0"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal1"
+                                style="width: 11rem">
+                            Generate librarian
+                        </button>
+                    </a>
+                </li>
+                <li class="nav-item mx-5">
+                    <h2 class="text-uppercase m-0 text-start text-white fw-bold">
+                        Admin panel
                     </h2>
                 </li>
-                <li class="align-self-center py-2 me-3">
+                <li class="mx-2">
                     <a href="/login">
                         <svg width="25" height="25" viewBox="0 0 48 46" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -50,20 +80,22 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="text-center mt-5">
-        <a style="text-decoration: none" href="/admin">
-            <button type="button" class="btn btn-outline-primary">
-                Admin Panel
-            </button>
-        </a>
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add new book
+<div class="container my-5">
+    <div class="text-center">
+        <h5>
+            System All Books
+        </h5>
+    </div>
+
+    <div class="text-center mt-3">
+        <button type="button" class="btn btn-outline-primary m-0"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"
+                style="width: 11rem">
+            Edit book
         </button>
     </div>
-</div>
 
-<div class="container">
     <span th:if="${!books.isEmpty()}">
     <div class="row row-cols-4 mx-auto justify-content-center my-5"
          style="min-width: 1300px">
@@ -77,14 +109,19 @@
                          alt="Admin Books">
                 </div>
                 <div class="card-body text-center">
-                    <h5 class="card-title fst-italic"
-                        th:text="${book.getName()}">title</h5>
+                    <h5 class="card-title fst-italic">
+                        "
+                        <span th:text="${book.getName()}">
+                              title
+                        </span>
+                        "
+                    </h5>
                     <p class="card-text"
                        th:text="${book.getAuthor()}">author</p>
                     <p class="card-text"
                        th:text="${book.getYear()}">year</p>
                     <p class="card-text"
-                       th:text="${book.isAvailable()}">available</p>
+                       th:text="${book.isAvailable() ? 'Available' : 'Not Available'}">isAvailable</p>
                 </div>
                 <div class="card-footer text-center">
                     <small class="text-muted">AITU Library</small>
@@ -96,8 +133,8 @@
     <span th:unless="${!books.isEmpty()}">
     <div class="card mt-5 mx-auto text-center" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title fst-italic">Currently there are no books</h5>
-            <p class="card-text">As a admin</p>
+            <h5 class="card-title fw-bold">Currently there are no books</h5>
+            <p class="card-text">As an admin</p>
             <p class="card-text">You can add a book</p>
             <p class="card-text">To provide user</p>
             <p class="card-text">Book reservation</p>
@@ -162,6 +199,158 @@
     </div>
 </div>
 <!-- Modal -->
+
+<!-- Generate Librarian Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel1">Generate librarian</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:method="POST" th:action="@{/admin/librarian/generate}" th:object="${user}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">
+                            First name:
+                        </label>
+                        <input type="text"
+                               th:field="*{name}"
+                               placeholder="First name"
+                               class="form-control"
+                               id="first_name">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}">
+                            Error
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">
+                            Last name:
+                        </label>
+                        <input type="text"
+                               th:field="*{surname}"
+                               placeholder="Last name"
+                               class="form-control"
+                               id="last_name">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('surname')}"
+                             th:errors="*{surname}">
+                            Error
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">
+                            Phone number:
+                        </label>
+                        <input type="number"
+                               th:field="*{phone}"
+                               placeholder="Phone number"
+                               class="form-control"
+                               id="phone_number"
+                               value="87775566991">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('phone')}"
+                             th:errors="*{phone}">
+                            Error
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Generate Librarian Modal -->
+
+<!-- Book Edit Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel2">Edit choosen book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:method="POST" th:action="@{/admin/books/edit}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="w-100" for="select_book">
+                            <select class="form-select" id="select_book" th:object="${book}" th:field="*{name}">
+                                <option value="0">Select book</option>
+                                <option th:each="book : ${books}"
+                                        th:field="*{name}"
+                                        th:value="${book.getName()}"
+                                        th:text="${book.getName()}">book_name</option>
+                                <div style="color: red"
+                                     th:if="${#fields.hasErrors('name')}"
+                                     th:errors="*{name}">
+                                    Error
+                                </div>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="book_name" class="form-label">
+                            Title:
+                        </label>
+                        <input type="text"
+                               th:value="${new_title.text}"
+                               name="text"
+                               placeholder="Book name"
+                               class="form-control"
+                               id="book_name">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('new_title.text')}"
+                             th:errors="*{new_title.text}">
+                            Error
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="book_author" class="form-label">
+                            Author:
+                        </label>
+                        <input type="text"
+                               th:value="${book.author}"
+                               name="author"
+                               placeholder="Book author"
+                               class="form-control"
+                               id="book_author">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('book.author')}"
+                             th:errors="*{book.author}">
+                            Error
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="book_year" class="form-label">
+                            Released year:
+                        </label>
+                        <input type="text"
+                               th:field="*{book.year}"
+                               name="year"
+                               placeholder="Book year"
+                               class="form-control"
+                               id="book_year">
+                        <div style="color: red"
+                             th:if="${#fields.hasErrors('book.year')}"
+                             th:errors="*{book.year}">
+                            Error
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Book Edit Modal -->
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#0D6EFD" fill-opacity="1"

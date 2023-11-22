@@ -1,6 +1,7 @@
 package com.example.library_ms_project.controller;
 
 import com.example.library_ms_project.entity.Book;
+import com.example.library_ms_project.entity.BookRequest;
 import com.example.library_ms_project.entity.SearchedText;
 import com.example.library_ms_project.entity.User;
 import com.example.library_ms_project.service.BookService;
@@ -76,6 +77,7 @@ public class UserController {
             model.addAttribute("return_date", return_date);
             model.addAttribute("days", leftDays);
         }
+
         return "profile";
     }
 
@@ -101,10 +103,15 @@ public class UserController {
     ) {
         User u = userService.findUserById(id);
 
+        if (!u.getEmail().equals(user.getEmail()) && userService.findUserByEmail(user.getEmail()) != null) {
+            u.setEmail(u.getEmail());
+        } else {
+            u.setEmail(user.getEmail());
+        }
+
         u.setName(user.getName());
         u.setSurname(user.getSurname());
         u.setPhone(user.getPhone());
-        u.setEmail(user.getEmail());
 
         userService.updateUser(u);
         return "redirect:/user/account/" + u.getId();
@@ -140,18 +147,16 @@ public class UserController {
 
     @GetMapping("/user/book/borrow")
     public String borrowBook(
-            Model model,
             @ModelAttribute("id") String id,
             @ModelAttribute("bookId") String bookId
-    ) throws ParseException {
-        Book book = userService.borrowBook(id, bookId);
-        if (book != null) {
-            User user = userService.findUserById(id);
-            model.addAttribute("user", user);
-            model.addAttribute("book", book);
-            model.addAttribute("days", 14);
-            return "redirect:/user/profile";
+    ) {
+
+        BookRequest bookRequest = userService.findBookRequest(id, bookId);
+
+        if (bookRequest == null) {
+            userService.createRequest(id, bookId);
         }
+
         return "redirect:/user/library/" + id;
     }
 
@@ -162,7 +167,7 @@ public class UserController {
     ) {
         User user = userService.findUserById(id);
         model.addAttribute("user", user);
-        model.addAttribute("book", bookService.getAllBooks());
+        model.addAttribute("books", bookService.getAllBooks());
         return "user_books";
     }
 

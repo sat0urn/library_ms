@@ -23,6 +23,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
                 // Redirect to the admin page if the user has the ADMIN role
                 setDefaultTargetUrl("/admin");
                 break;
+            } else if (authority.getAuthority().equals("ROLE_LIBRARIAN")) {
+                // Redirect to the librarian page if the user has the LIBRARIAN role
+                setDefaultTargetUrl("/librarian");
+                break;
             } else {
                 // Redirect to the user profile page if the user has the USER role
                 setDefaultTargetUrl("/user/profile");

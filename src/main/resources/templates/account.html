@@ -29,15 +29,15 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                    <a class="nav-link text-center" href="/user/profile" style="width: 4rem">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mail</a>
+                    <a class="nav-link text-center" th:href="@{/user/library/{id}(id=${user.getId()})}" style="width: 5rem">Library</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dept</a>
+                    <a class="nav-link text-center" th:href="@{/user/history/{id}(id=${user.getId()})}" style="width: 5rem">History</a>
                 </li>
-                <li class="align-self-center py-2 me-3">
+                <li class="align-self-center py-2 mx-2">
                     <a class="text-decoration-none text-white" th:href="@{/user/account/{id}(id=${user.getId()})}">
                         <svg width="25" height="25" viewBox="0 0 898 898" fill="none"
                              xmlns="http://www.w3.org/2000/svg" class="m-0">
@@ -49,7 +49,7 @@
                         <span class="pe-1" th:text="${user.getSurname()}"></span>
                     </a>
                 </li>
-                <li class="align-self-center py-2 me-3">
+                <li class="align-self-center py-2 mx-3">
                     <a href="/login">
                         <svg width="25" height="25" viewBox="0 0 48 46" fill="none"
                              xmlns="http://www.w3.org/2000/svg">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Librarian</title>
     <link rel="icon" type="image/png" href="/img/logo_tab.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800,900&display=swap&subset=cyrillic-ext"
           rel="stylesheet">
@@ -28,37 +28,9 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/books">
-                        <button type="button" class="btn btn-outline-primary border-0 bg-light text-primary m-0"
-                                style="width: 11rem">
-                            Show all books
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <button type="button" class="btn btn-outline-primary border-0 bg-light text-primary m-0"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                style="width: 11rem">
-                            Add new book
-                        </button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <button type="button" class="btn btn-outline-primary border-0 bg-light text-primary m-0"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal1"
-                                style="width: 11rem">
-                            Generate librarian
-                        </button>
-                    </a>
-                </li>
                 <li class="nav-item mx-5">
                     <h2 class="text-uppercase m-0 text-start text-white fw-bold">
-                        Admin panel
+                        Librarian panel
                     </h2>
                 </li>
                 <li class="mx-2">
@@ -80,154 +52,89 @@
 </nav>
 
 <div class="container my-5">
-    <div class="text-center">
-        <h5>
-            System End-users / Admin / Librarians
-        </h5>
-    </div>
-    <table class="table table-bordered table-striped my-5 w-75 mx-auto">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Phone number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Password</th>
-            <th scope="col">Role</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user, userInd : ${users}">
-            <th scope="row" th:text="${userInd.index + 1}"></th>
-            <td th:text="${user.getName()}"></td>
-            <td th:text="${user.getSurname()}"></td>
-            <td th:text="${user.getPhone()}"></td>
-            <td th:text="${user.getEmail()}"></td>
-            <td th:text="${passwords[userInd.index]}">Secret</td>
-            <td th:text="${user.getRoles().get(0).name.substring(5)}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add book to library</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:method="POST" th:action="@{/admin/books/add}" th:object="${book}">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="title" class="form-label">
-                            Book title
-                        </label>
-                        <input type="text"
-                               th:field="*{name}"
-                               placeholder="Book title"
-                               class="form-control"
-                               id="title">
-                    </div>
-                    <div class="mb-3">
-                        <label for="author" class="form-label">
-                            Author
-                        </label>
-                        <input type="text"
-                               th:field="*{author}"
-                               placeholder="Book author"
-                               class="form-control"
-                               id="author">
-                    </div>
-                    <div class="mb-3">
-                        <label for="year" class="form-label">
-                            Released year
-                        </label>
-                        <input type="number"
-                               th:field="*{year}"
-                               placeholder="Released year"
-                               class="form-control"
-                               id="year">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-            </form>
+    <div class="card w-100">
+        <div class="card-header text-center">
+            <h5 class="fst-italic fw-bold">
+                Users Book Requests
+            </h5>
         </div>
-    </div>
-</div>
-<!-- Modal -->
-
-<!-- Generate Librarian Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel1">Generate librarian</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:method="POST" th:action="@{/admin/librarian/generate}" th:object="${user}">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="first_name" class="form-label">
-                            First name:
-                        </label>
-                        <input type="text"
-                               th:field="*{name}"
-                               placeholder="First name"
-                               class="form-control"
-                               id="first_name">
-                        <div style="color: red"
-                             th:if="${#fields.hasErrors('name')}"
-                             th:errors="*{name}">
-                            Error
+        <ul class="list-group list-group-flush">
+            <span th:if="${users != null && !users.isEmpty()}">
+            <li class="list-group-item"
+                th:each="user, iter : ${users}">
+                <div class="card">
+                    <form th:method="POST"
+                          th:action="@{/librarian/reserve/{id}/{bookId}(id=${user.getId()}, bookId=${books.get(iter.index).getId()})}"
+                          th:object="${book_request}">
+                        <div class="card-header">
+                            №<span th:text="${iter.index + 1}">RequestId</span>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="last_name" class="form-label">
-                            Last name:
-                        </label>
-                        <input type="text"
-                               th:field="*{surname}"
-                               placeholder="Last name"
-                               class="form-control"
-                               id="last_name">
-                        <div style="color: red"
-                             th:if="${#fields.hasErrors('surname')}"
-                             th:errors="*{surname}">
-                            Error
+                        <div class="row row-cols-3">
+                            <div class="col-6">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2 align-self-center">
+                                            <h6 class="card-text">
+                                            <span class="fw-bold">
+                                                Receiver:
+                                            </span>
+                                            </h6>
+                                            <h6 class="card-text">
+                                            <span class="fw-bold">
+                                                Target:
+                                            </span>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-5 text-center align-self-center">
+                                            <span th:text="${user.getSurname()}">surname</span>
+                                            <span th:text="${user.getName()}">name</span>
+                                            <br>
+                                            <span th:text="${books.get(iter.index).getAuthor()}">author</span>:
+                                            "<span th:text="${books.get(iter.index).getName()}">name</span>"
+                                        </div>
+                                        <div class="col-md-5 text-center align-self-center">
+                                            #<span th:text="${user.getId()}">userId</span>
+                                            <br>
+                                            #<span th:text="${books.get(iter.index).getId()}">bookId</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 align-self-center">
+                                <label class="small mb-1" for="inputReturnDays">
+                                    Return days (# out of 14)
+                                </label>
+                                <input type="number"
+                                       th:field="*{returnDays}"
+                                       class="form-control w-50"
+                                       id="inputReturnDays"
+                                       placeholder="Enter return days">
+                                <div style="color: red"
+                                     th:if="${#fields.hasErrors('returnDays')}"
+                                     th:errors="*{returnDays}">
+                                    Error
+                                </div>
+                            </div>
+                            <div class="col-3 text-center align-self-center">
+                                <button type="submit" class="btn btn-primary w-75">
+                                    Reserve book
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone_number" class="form-label">
-                            Phone number:
-                        </label>
-                        <input type="number"
-                               th:field="*{phone}"
-                               placeholder="Phone number"
-                               class="form-control"
-                               id="phone_number"
-                               value="87775566991">
-                        <div style="color: red"
-                             th:if="${#fields.hasErrors('phone')}"
-                             th:errors="*{phone}">
-                            Error
-                        </div>
+                    </form>
+                </div>
+            </li>
+            </span>
+            <span th:unless="${users != null && !users.isEmpty()}">
+                <div class="card">
+                    <div class="card-text text-center align-middle my-5">
+                        <h5>No requests</h5>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Generate</button>
-                </div>
-            </form>
-        </div>
+            </span>
+        </ul>
     </div>
 </div>
-<!-- Generate Librarian Modal -->
 
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
