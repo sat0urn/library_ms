@@ -1,4 +1,5 @@
 com\example\library_ms_project\repository\BookRepository.class
+com\example\library_ms_project\controller\LibrarianController.class
 com\example\library_ms_project\entity\Role.class
 com\example\library_ms_project\service\BookServiceImpl.class
 com\example\library_ms_project\controller\MainController.class
@@ -11,9 +12,11 @@ com\example\library_ms_project\config\WebConfig.class
 com\example\library_ms_project\controller\error\MyErrorController.class
 com\example\library_ms_project\controller\UserController.class
 com\example\library_ms_project\entity\User.class
+com\example\library_ms_project\entity\BookRequest.class
 com\example\library_ms_project\service\UserServiceImpl.class
 com\example\library_ms_project\LibraryMSProjectApplication.class
 com\example\library_ms_project\entity\SearchedText.class
 com\example\library_ms_project\interceptors\MobileDetectionIntercept.class
+com\example\library_ms_project\repository\BookRequestRepository.class
 com\example\library_ms_project\service\BookService.class
 com\example\library_ms_project\config\CustomAuthenticationSuccessHandler.class

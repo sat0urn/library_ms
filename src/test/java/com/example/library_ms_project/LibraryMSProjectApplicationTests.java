@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-class UserServiceImplTest {
+class LibraryMSProjectApplicationTests {
     @Autowired
     private UserService userService;
     @Autowired
@@ -32,7 +32,7 @@ class UserServiceImplTest {
 
     @Test
     public void testFindUserById() {
-        User user = userService.findUserById("654ee9d85fde4346035169dd");
+        User user = userService.findUserById("655e5013d2089801cc16e03e");
         Assertions.assertEquals(user.getName(), "zeiin");
     }
 }
