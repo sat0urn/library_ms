@@ -8,16 +8,14 @@ import com.example.library_ms_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/librarian")
 public class LibrarianController {
 
     @Autowired
@@ -26,7 +24,7 @@ public class LibrarianController {
     @Autowired
     public UserService userService;
 
-    @GetMapping("/librarian")
+    @GetMapping()
     public String librarianPage(
             Model model,
             @ModelAttribute("book_request") BookRequest bookRequest
@@ -39,7 +37,7 @@ public class LibrarianController {
         if (bookRequestList != null && !bookRequestList.isEmpty()) {
             for (BookRequest bookReq : bookRequestList) {
                 users.add(userService.findUserById(bookReq.getUserId()));
-                books.add(bookService.findById(bookReq.getBookId()));
+                books.add(bookService.findBookById(bookReq.getBookId()));
             }
         }
 
@@ -49,7 +47,7 @@ public class LibrarianController {
         return "librarian";
     }
 
-    @PostMapping("/librarian/reserve/{id}/{bookId}")
+    @PostMapping("/reserve/{id}/{bookId}")
     public String reserveBook(
             @PathVariable("id") String user_id,
             @PathVariable("bookId") String book_id,

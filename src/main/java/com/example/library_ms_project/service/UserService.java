@@ -37,7 +37,7 @@ public interface UserService extends UserDetailsService {
 
     void removeRequest(String userId, String  booId);
 
-    String generatePassword(User user);
+    String generateLibrarianPassword(User user);
 
     List<BookRequest> getAllBookRequests();
 }

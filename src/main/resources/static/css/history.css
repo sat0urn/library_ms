@@ -1,0 +1,27 @@
+/* NAVBAR */
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a {
+    color: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a > svg > path {
+    fill: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(5) > a > svg path {
+    fill: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a:hover {
+    color: wheat;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a:hover > svg > path {
+    fill: wheat;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(5) > a:hover > svg path {
+    fill: wheat;
+}
+
+/* NAVBAR END */

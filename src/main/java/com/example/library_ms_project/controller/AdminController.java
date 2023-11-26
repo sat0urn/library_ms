@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -27,7 +28,7 @@ public class AdminController {
     @Autowired
     public UserService userService;
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String getAllUsersAdminPage(
             @ModelAttribute("book") Book book,
             @ModelAttribute("user") User user,
@@ -37,7 +38,7 @@ public class AdminController {
 
         for (User u : all_users) {
             if (u.getRoles().get(0).getName().equals("ROLE_LIBRARIAN")) {
-                passwords.add(userService.generatePassword(u));
+                passwords.add(userService.generateLibrarianPassword(u));
             } else {
                 passwords.add("SECRET");
             }
@@ -48,7 +49,7 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/admin/books")
+    @GetMapping("/books")
     public String showAllBooks(
             @ModelAttribute("book") Book book,
             @ModelAttribute("user") User user,
@@ -58,7 +59,7 @@ public class AdminController {
         return "admin_books";
     }
 
-    @PostMapping("/admin/books/edit")
+    @PostMapping("/books/edit")
     public String editChosenBook(
             @ModelAttribute("book") Book book,
             @ModelAttribute("new_title") SearchedText new_title
@@ -90,13 +91,13 @@ public class AdminController {
         return "redirect:/admin/books";
     }
 
-    @PostMapping("/admin/books/add")
+    @PostMapping("/books/add")
     public String addNewBook(@ModelAttribute("book") Book book) {
         bookService.save(book);
         return "redirect:/admin/books";
     }
 
-    @PostMapping("/admin/librarian/generate")
+    @PostMapping("/librarian/generate")
     public String generateLibrarian(
             @ModelAttribute("user") User user
     ) {

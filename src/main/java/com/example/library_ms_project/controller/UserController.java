@@ -22,6 +22,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -30,7 +31,7 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @GetMapping("/user/profile")
+    @GetMapping("/profile")
     public String profilePage(Model model, Authentication authentication) {
 
         User user = userService.findUserByEmail(authentication.getName());
@@ -66,8 +67,14 @@ public class UserController {
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
 
-            int today = LocalDate.now().getDayOfMonth();
-            int leftDays = bookDate.minusDays(today).getDayOfMonth();
+            int todayDays = LocalDate.now().getDayOfMonth();
+            int leftDays = bookDate.minusDays(todayDays).getDayOfMonth();
+
+            if (todayDays >= bookDate.getDayOfMonth()) {
+                leftDays = 0;
+
+
+            }
 
             SimpleDateFormat DateFor = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
             String return_date = DateFor.format(book.getReturnDate());
@@ -81,7 +88,7 @@ public class UserController {
         return "profile";
     }
 
-    @GetMapping("/user/account/{id}")
+    @GetMapping("/account/{id}")
     public String userInformationPage(
             @PathVariable("id") String id,
             Model model
@@ -96,7 +103,7 @@ public class UserController {
         return "account";
     }
 
-    @PostMapping("/user/account/{id}")
+    @PostMapping("/account/{id}")
     public String updateUser(
             @PathVariable("id") String id,
             @ModelAttribute("user") User user
@@ -117,7 +124,7 @@ public class UserController {
         return "redirect:/user/account/" + u.getId();
     }
 
-    @PostMapping("/user/account/photo/add")
+    @PostMapping("/account/photo/add")
     public String addPhoto(
             @RequestParam("image") MultipartFile image,
             @ModelAttribute("id") String id
@@ -126,7 +133,7 @@ public class UserController {
         return "redirect:/user/account/" + id;
     }
 
-    @PostMapping("/user/account/change_password/{id}")
+    @PostMapping("/account/change_password/{id}")
     public String changePassword(
             @PathVariable("id") String id,
             @ModelAttribute("user") User user
@@ -139,13 +146,13 @@ public class UserController {
         return "redirect:/user/account/" + u.getId();
     }
 
-    @GetMapping("/user/account/delete/{id}")
+    @GetMapping("/account/delete/{id}")
     public String deleteUser(@PathVariable("id") String id) {
         userService.deleteUser(id);
         return "redirect:/";
     }
 
-    @GetMapping("/user/book/borrow")
+    @GetMapping("/book/borrow")
     public String borrowBook(
             @ModelAttribute("id") String id,
             @ModelAttribute("bookId") String bookId
@@ -160,7 +167,7 @@ public class UserController {
         return "redirect:/user/library/" + id;
     }
 
-    @GetMapping("/user/library/{id}")
+    @GetMapping("/library/{id}")
     public String showAllBooks(
             Model model,
             @PathVariable("id") String id
@@ -171,7 +178,7 @@ public class UserController {
         return "user_books";
     }
 
-    @GetMapping("/user/history/{id}")
+    @GetMapping("/history/{id}")
     public String showHistoryPage(
             Model model,
             @PathVariable("id") String id
@@ -216,7 +223,7 @@ public class UserController {
         return "history";
     }
 
-    @PostMapping("/user/history/{id}")
+    @PostMapping("/history/{id}")
     public String searchBooksHistory(
             final RedirectAttributes redirectAttributes,
             @PathVariable("id") String id,

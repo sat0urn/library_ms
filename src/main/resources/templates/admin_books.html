@@ -99,7 +99,7 @@
     <span th:if="${!books.isEmpty()}">
     <div class="row row-cols-4 mx-auto justify-content-center my-5"
          style="min-width: 1300px">
-        <div class="col"
+        <div class="col my-2"
              th:each="book : ${books}">
             <div class="card" style="width: 18rem;">
                 <div class="card-header text-center">
@@ -108,20 +108,28 @@
                          src="/img/book_ex_temp.png"
                          alt="Admin Books">
                 </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title fst-italic">
-                        "
+                 <div class="card-body">
+                    <h5 class="card-title fw-bold text-center mb-3 pb-3 border-2 border-bottom">
+                         "
                         <span th:text="${book.getName()}">
                               title
                         </span>
                         "
                     </h5>
-                    <p class="card-text"
-                       th:text="${book.getAuthor()}">author</p>
-                    <p class="card-text"
-                       th:text="${book.getYear()}">year</p>
-                    <p class="card-text"
-                       th:text="${book.isAvailable() ? 'Available' : 'Not Available'}">isAvailable</p>
+                    <p class="card-text">
+                        Author: <span th:text="${book.getAuthor()}" class="fst-italic">author</span>
+                    </p>
+                    <p class="card-text">
+                        Released: <span th:text="${book.getYear()}" class="fst-italic">year</span> year
+                    </p>
+                    <p class="card-text">
+                        Status:
+                        <span th:classappend="${book.isAvailable() ? 'text-primary' : 'text-danger'}"
+                              th:text="${book.isAvailable() ? 'Available' : 'Not Available'}"
+                              class="fw-bold text-decoration-underline">
+                            isAvailable
+                        </span>
+                    </p>
                 </div>
                 <div class="card-footer text-center">
                     <small class="text-muted">AITU Library</small>
@@ -284,7 +292,8 @@
                                 <option th:each="book : ${books}"
                                         th:field="*{name}"
                                         th:value="${book.getName()}"
-                                        th:text="${book.getName()}">book_name</option>
+                                        th:text="${book.getName()}">book_name
+                                </option>
                                 <div style="color: red"
                                      th:if="${#fields.hasErrors('name')}"
                                      th:errors="*{name}">

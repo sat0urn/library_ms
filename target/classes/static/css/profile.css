@@ -4,6 +4,34 @@
     border-radius: 1rem;
 }
 
+/* NAVBAR */
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a {
+    color: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a > svg > path {
+    fill: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(5) > a > svg path {
+    fill: white;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a:hover {
+    color: wheat;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(4) > a:hover > svg > path {
+    fill: wheat;
+}
+
+.collapse.navbar-collapse.justify-content-end > ul > li:nth-child(5) > a:hover > svg path {
+    fill: wheat;
+}
+
+/* NAVBAR END */
+
 /* PROGRESS BAR START */
 .skill {
     width: 160px;
@@ -52,6 +80,7 @@ circle {
     top: 0;
     left: 0;
 }
+
 /* PROGRESS BAR END */
 
 /* TABLE START */
@@ -137,4 +166,5 @@ circle {
     margin-bottom: 0;
     font-size: 22px;
 }
+
 /* TABLE END */

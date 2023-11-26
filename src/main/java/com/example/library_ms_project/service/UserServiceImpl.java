@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void borrowBook(String id, String bookId, int returnDays) throws ParseException {
-        Book book = bookService.findById(bookId);
+        Book book = bookService.findBookById(bookId);
 
         if (book != null && book.isAvailable()) {
             LocalDate localDate = LocalDate.now();
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String generatePassword(User user) {
+    public String generateLibrarianPassword(User user) {
         String first_name = user.getName().toLowerCase();
         String last_name = user.getSurname().toLowerCase();
         String phone = user.getPhone().toString();
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService {
                 + last_name
                 + phone.substring(phone.length() - 4) + "@libms.com";
 
-        String password = generatePassword(user);
+        String password = generateLibrarianPassword(user);
 
         user.setEmail(email);
         String hashedPassword = passwordEncoder.encode(password);
